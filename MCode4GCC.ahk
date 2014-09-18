@@ -10,7 +10,7 @@ MCode4GCC_settings =
 [settings]
 Compilerpath=gcc
 StripDebugInfo=1
-Optimize=2
+Optimize=3
 )
 
 if !FileExist(settings_File:="MCode4GCC.ini")
@@ -188,6 +188,7 @@ if (About_ExeFile!=ExeFile) {
 MsgBox, 64, About MCode4GCC,
 (
 MCode4GCC - C/C++ MCode Generator using GCC
+Revision: 15:56 2014/09/17
 
 Copyright ©2014-%A_Year% Joe DF (joedf@ahkscript.org)
 Special thanks to IsNull, fincs and kon
@@ -201,21 +202,22 @@ MCode_Generate(file,cp,flags:="") {
 	tmpf_a:=get_TempFile()
 	tmpf_b:=tmpf_a "_b"
 	tmpf_c:=tmpf_a "_c"
+	SplitPath, cp,, cpDir
+	if !FileExist(cp) {
+		cpPath:=get_where_Path(cp)
+		SplitPath, cpPath,, cpDir
+	}
+	EnvGet, bkp_PathVar, Path
+	EnvSet, Path, %cpDir% ;Update path environment var
 	RunWait, %comspec% /c %cp% %flags% -Wa`,-aln="%tmpf_a%" "%file%" -o "%tmpf_b%" 2> "%tmpf_c%",, UseErrorLevel Hide
-	if ErrorLevel = ERROR
+	cpRunEL:=ErrorLevel, ReturnVar:=""
+	EnvSet, Path, %bkp_PathVar% ;Restore env var
+	if cpRunEL = ERROR
 	{
 		LogLn("<Error : Could not launch GCC! @ " """" cp """")
-		FileDelete,%tmpf_b%
-		FileDelete,%tmpf_a%
-		FileDelete,%tmpf_c%
-		return
 	} else {
 		FileRead,data,%tmpf_a%
 		FileRead,out,%tmpf_c%
-		FileDelete,%tmpf_b%
-		FileDelete,%tmpf_a%
-		FileDelete,%tmpf_c%
-		
 		if StrLen(out:=Trim(out)) {
 			StringReplace,out,out,%file%,SOURCEFILE,All
 			out:="`n<Stderr output>:`n============================================================`n" out
@@ -223,12 +225,16 @@ MCode_Generate(file,cp,flags:="") {
 			if Instr(out,"WinMain") ;ignore error: "undefined reference to 'WinMain'" or similar
 			{
 				LogLn("<Error ignored: undefined reference to 'WinMain'>")
-				return MCode_Parse(data)
+				ReturnVar := MCode_Parse(data)
 			}
 		} else {
-			return MCode_Parse(data)
+			ReturnVar := MCode_Parse(data)
 		}
 	}
+	FileDelete,%tmpf_a%
+	FileDelete,%tmpf_b%
+	FileDelete,%tmpf_c%
+	return ReturnVar
 }
 
 MCode_Parse(data,clean:=1) {
@@ -256,7 +262,7 @@ Get_Compiler(sfile:="") {
 		sfile:=A_scriptFullPath
 	IniRead,x,%sfile%,settings,Compilerpath,!NULL
 	if !FileExist(x) and !StrLen(get_where_Path(x))
-		return get_GCC_Path()
+		return get_where_Path("gcc")
 	return x
 }
 
@@ -270,7 +276,7 @@ Display(data) {
 	Gui Display:Add, Edit, w300 h100 +ReadOnly, % data
 	Gui Display:Add, Button, gDisplayCopy, Copy to Clipboard
 	Gui Display:Add, Button, gDisplayGuiclose yp x+3, Close
-	Gui Display:Show
+	Gui Display:Show,,MCode4GCC - Generated MCode
 	return
 	
 	DisplayCopy:
@@ -312,8 +318,11 @@ get_TempFile(d:="") {
 	until !FileExist(tempName)
 	return tempName
 }
-get_GCC_Path() {
-	return get_where_Path("gcc")
+GetSystemDirectory() {
+	VarSetCapacity(pSysPath,pSysPathSz:=264,0)
+	if !DllCall("GetSystemDirectory","Str",pSysPath,"UInt",pSysPathSz)
+		return A_WinDir "\System32"
+	return pSysPath
 }
 get_where_Path(item) {
 	data:=Get_stdout("where " item)
