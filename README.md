@@ -9,10 +9,10 @@ http://ahkscript.org/boards/viewtopic.php?f=7&t=32
 ![screenshot01](screenshot.png "screenshot")
   
 ## Help
-### What is MCode?
+#### What is MCode?
 **MCode** is short for [machine code](http://en.wikipedia.org/wiki/Machine_code). Basically, it is compiled code : instructions in binary form for the CPU to execute. The main advantages of MCode is speed and the possibility to execute low-level code, such as Assembly.  
 
-### Getting started
+#### Getting started
 Currently, there are two MCode functions available for AutoHotkey. Bentschi's version is recommended.  
   
 **Laszlo**'s version :  
@@ -43,7 +43,7 @@ MCode(mcode) {
 }
 ```
   
-### Questions?
+#### Questions?
 Don't be shy to post in the forums. Just ask away!
 Post your questions here : http://ahkscript.org/boards/viewforum.php?f=5
   
