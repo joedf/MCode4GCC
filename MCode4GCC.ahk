@@ -21,7 +21,7 @@ if !FileExist(settings_File:="MCode4GCC.ini")
 
 ;=====================[ GLOBAL VARS ]=======================
 EnvGet, @PATH_VAR, Path
-@REVISION_DATE := "18:42 2014/09/18"
+@REVISION_DATE := "01:35 2014/09/19"
 ;===========================================================
 
 Menu, FileMenu, Add, &Generate MCode, Generate
