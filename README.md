@@ -2,7 +2,7 @@ MCode4GCC
 ==================
   
 MCode4GCC is an MCode generator using the GCC Compiler.  
-More about MCode here: http://ahkscript.org/boards/viewtopic.php?f=7&t=32
+More about MCode here : http://ahkscript.org/boards/viewtopic.php?f=7&t=32
   
 ## Screenshots
 ![screenshot01](screenshot.png "screenshot")
@@ -49,7 +49,7 @@ MCode(mcode) {
   
 #### Setting up GCC
 There are many GCC distributions for the Microsoft Windows Operating System.  
-Here are some recommended ones:  
+Here are some recommended ones :  
 	- MinGW : http://www.mingw.org/wiki/Getting_Started  
 	- TDM-GCC : http://tdm-gcc.tdragon.net/download  
 	- Cygwin : https://cygwin.com/install.html  
