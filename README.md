@@ -5,14 +5,14 @@ MCode4GCC is an MCode generator using the GCC Compiler.
 More about MCode here:  
 http://ahkscript.org/boards/viewtopic.php?f=7&t=32
   
-### Screenshots
+## Screenshots
 ![screenshot01](screenshot.png "screenshot")
   
-### Help
-#### What is MCode?
+## Help
+### What is MCode?
 **MCode** is short for [machine code](http://en.wikipedia.org/wiki/Machine_code). Basically, it is compiled code : instructions in binary form for the CPU to execute. The main advantages of MCode is speed and the possibility to execute low-level code, such as Assembly.  
 
-#### Getting started
+### Getting started
 Currently, there are two MCode functions available for AutoHotkey. Bentschi's version is recommended.  
   
 **Laszlo**'s version :  
@@ -43,11 +43,11 @@ MCode(mcode) {
 }
 ```
   
-#### Questions?
+### Questions?
 Don't be shy to post in the forums. Just ask away!
 Post your questions here : http://ahkscript.org/boards/viewforum.php?f=5
   
-### Credits
+## Credits
 Special thanks to IsNull, fincs, Laszlo, SKAN, Bentschi and kon  
 Written by joedf (joedf@ahkscript.org)  
 Released under the [MIT License](http://opensource.org/licenses/MIT)  
