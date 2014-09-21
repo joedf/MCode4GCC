@@ -56,7 +56,7 @@ Here are some recommended ones :
   
 #### Questions?
 Don't be shy to post in the forums. Just ask away!  
-Post your questions here : http://ahkscript.org/boards/viewforum.php?f=5  
+Post your questions here : http://ahkscript.org/boards/viewtopic.php?f=6&t=4642  
   
 ## Credits
 Special thanks to IsNull, fincs, Laszlo, SKAN, Bentschi and kon  
