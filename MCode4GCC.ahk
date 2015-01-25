@@ -31,16 +31,12 @@ Menu, MRefMenu, Add, Bentschi Style, SetMCodeStyle
 Menu, MRefMenu, Add, Laszlo Style, SetMCodeStyle
 Menu, HelpMenu, Add, Help`tF1, Help
 Menu, HelpMenu, Add, MCode &Help (Forum Thread), MCodeHelp
-Menu, HelpMenu, Add, MCode functions, About
 Menu, HelpMenu, Add
 Menu, HelpMenu, Add, &About, About
 Menu, MenuBar, Add, &File, :FileMenu
 Menu, MenuBar, Add, &Settings, :MRefMenu
 Menu, MenuBar, Add, &Help, :HelpMenu
 Gui, Menu, MenuBar
-
-
-Menu, HelpMenu, Disable, MCode functions
 
 
 Gui +hwndhMainGUI
