@@ -21,7 +21,7 @@ if !FileExist(settings_File:="MCode4GCC.ini")
 
 ;=====================[ GLOBAL VARS ]=======================
 EnvGet, @PATH_VAR, Path
-@REVISION_DATE := "01:35 2014/09/19"
+@REVISION_DATE := "00:25 2015/02/03"
 ;===========================================================
 
 Menu, FileMenu, Add, &Generate MCode, Generate
@@ -194,7 +194,7 @@ Generate:
 	if StrLen(x) {
 		if InStr(MCodeStyle,"Bentschi") {
 			LogLn("<Converting Hexadecimal to Base64...>")
-			x := "2,x" Get_CompilerType(ExeFile) ":" Hex2Base64(x)
+			x := "2,x" (Get_CompilerType(ExeFile)=="32"?"86":"64") ":" Hex2Base64(x)
 		}
 		y:="Done. Run time: " RunTime " seconds"
 		LogLn("<" y ">")
