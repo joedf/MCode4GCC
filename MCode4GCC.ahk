@@ -21,7 +21,7 @@ if !FileExist(settings_File:="MCode4GCC.ini")
 
 ;=====================[ GLOBAL VARS ]=======================
 EnvGet, @PATH_VAR, Path
-@REVISION_DATE := "00:25 2015/02/03"
+@REVISION_DATE := "10:37 2019/11/25"
 ;===========================================================
 
 Menu, FileMenu, Add, &Generate MCode, Generate
@@ -194,7 +194,8 @@ Generate:
 	if StrLen(x) {
 		if InStr(MCodeStyle,"Bentschi") {
 			LogLn("<Converting Hexadecimal to Base64...>")
-			x := "2,x" (Get_CompilerType(ExeFile)=="32"?"86":"64") ":" Hex2Base64(x)
+			compiledCode := removeWhitespaceChars(Hex2Base64(x))
+			x := "2,x" (Get_CompilerType(ExeFile)=="32"?"86":"64") ":" compiledCode
 		}
 		y:="Done. Run time: " RunTime " seconds"
 		LogLn("<" y ">")
@@ -370,10 +371,10 @@ Hex2Base64(hex) {
 ;http://www.autohotkey.com/board/topic/85709-base64enc-base64dec-base64-encoder-decoder/
 Base64enc( ByRef OutData, ByRef InData, InDataLen ) { ; by SKAN
 	DllCall("Crypt32.dll\CryptBinaryToString" (A_IsUnicode?"W":"A")
-		,UInt,&InData,UInt,InDataLen,UInt,1,UInt,0,UIntP,TChars,"CDECL Int")
+		,UInt,&InData,UInt,InDataLen,UInt,(0x40000000|0x01),UInt,0,UIntP,TChars,"CDECL Int")
 	VarSetCapacity(OutData,Req:=TChars*(A_IsUnicode?2:1))
 	DllCall("Crypt32.dll\CryptBinaryToString" (A_IsUnicode?"W":"A")
-		,UInt,&InData,UInt,InDataLen,UInt,1,Str,OutData,UIntP,Req,"CDECL Int")
+		,UInt,&InData,UInt,InDataLen,UInt,(0x40000000|0x01),Str,OutData,UIntP,Req,"CDECL Int")
 	Return TChars
 }
 ; BinaryToString() / StringToBinary() from laszlo, updated by joedf
@@ -384,7 +385,18 @@ StringToBinary(ByRef bin, hex, fmt=12) {    ; return length, result in bin
 	VarSetCapacity(bin,cp)
 	DllCall("Crypt32.dll\CryptStringToBinary","Str",hex,"UInt",StrLen(hex),"UInt",fmt,"UInt",&bin,"UInt*",cp,"UInt",0,"UInt",0,"CDECL UInt")
 	Return cp
-} 
+}
+removeWhitespaceChars(str)
+	if InStr(str, "`r")
+		str := StrReplace(str, "`r", "")
+	if InStr(str, "`n")
+		str := StrReplace(str, "`n", "")
+	if InStr(str, "`t")
+		str := StrReplace(str, "`t", "")
+	if InStr(str, " ")
+		str := StrReplace(str, " ", "")
+	return str
+}
 ;}
 
 ;SCRIPT END
