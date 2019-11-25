@@ -386,7 +386,7 @@ StringToBinary(ByRef bin, hex, fmt=12) {    ; return length, result in bin
 	DllCall("Crypt32.dll\CryptStringToBinary","Str",hex,"UInt",StrLen(hex),"UInt",fmt,"UInt",&bin,"UInt*",cp,"UInt",0,"UInt",0,"CDECL UInt")
 	Return cp
 }
-removeWhitespaceChars(str)
+removeWhitespaceChars(str) {
 	if InStr(str, "`r")
 		str := StrReplace(str, "`r", "")
 	if InStr(str, "`n")
