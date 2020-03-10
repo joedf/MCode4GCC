@@ -51,7 +51,7 @@ MCode(mcode) {
 There are many GCC distributions for the Microsoft Windows Operating System.  
 Here are some recommended ones :  
 	- MinGW : http://www.mingw.org/wiki/Getting_Started  
-	- TDM-GCC : http://tdm-gcc.tdragon.net/download  
+	- TDM-GCC : https://jmeubank.github.io/tdm-gcc/  
 	- Cygwin : https://cygwin.com/install.html  
   
 #### Questions?
